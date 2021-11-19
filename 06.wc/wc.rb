@@ -43,18 +43,16 @@ end
 
 def show_text_data(filenames, numbers_counted_list)
   line_list = make_line_list(filenames, numbers_counted_list)
-
-  line_list.each do |line|
-    puts line.join
-  end
+  puts line_list
 end
 
 def make_line_list(filenames, numbers_counted_list)
   adjustment_num = make_adjustment_num(numbers_counted_list)
   line_list = numbers_counted_list.map do |numbers_counted|
-    numbers_counted.map do |num|
+    line = numbers_counted.map do |num|
       num.to_s.rjust(adjustment_num)
     end
+    line.join
   end
   # 引数にファイルを指定した場合にfilename、ファイルが複数なら文字列totalも追加する
   filenames.empty? ? line_list : add_word(filenames, line_list)
