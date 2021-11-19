@@ -7,7 +7,7 @@ def main
   options = ARGV.getopts('l')
   filenames = ARGV
   text_strings = filenames.empty? ? [$stdin.read] : filenames.map { |filename| File.read(filename) }
-  params = options['l'] == true ? { word: false, byte: false } : {}
+  params = options['l'] ? { word: false, byte: false } : {}
   numbers_counted_list = word_count(text_strings, **params)
   show_text_data(filenames, numbers_counted_list)
 end
