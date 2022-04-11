@@ -9,6 +9,21 @@ class Game
     @marks = marks.split(',')
   end
 
+  def score
+    point = 0
+    frames = create_frames
+    frames.each_with_index do |frame, idx|
+      point += if idx < 9
+                 frame.score + bonus(frames, frame, idx)
+               else
+                 frame.score
+               end
+    end
+    point
+  end
+
+  private
+
   def create_frames
     frames = []
     9.times do
@@ -36,19 +51,6 @@ class Game
     else
       0
     end
-  end
-
-  def score
-    point = 0
-    frames = create_frames
-    frames.each_with_index do |frame, idx|
-      point += if idx < 9
-                 frame.score + bonus(frames, frame, idx)
-               else
-                 frame.score
-               end
-    end
-    point
   end
 end
 
