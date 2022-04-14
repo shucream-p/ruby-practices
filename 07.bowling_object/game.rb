@@ -23,16 +23,12 @@ class Game
   private
 
   def create_frames
-    frames = []
-    9.times do
-      frame = @marks.first == STRIKE ? [@marks.shift] : @marks.shift(2)
-      frames << frame
+    frames = Array.new(9) do
+      marks = @marks.first == STRIKE ? [@marks.shift] : @marks.shift(2)
+      Frame.new(*marks)
     end
-    frames << @marks
-
-    frames.map do |frame|
-      Frame.new(frame[0], frame[1], frame[2])
-    end
+    frames << Frame.new(*@marks)
+    frames
   end
 
   def bonus(frames, frame, idx)
