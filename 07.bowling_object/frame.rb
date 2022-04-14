@@ -9,7 +9,30 @@ class Frame
     @third_shot = Shot.new(third_mark)
   end
 
+  def [](idx)
+    case idx
+    when 0
+      @first_shot
+    when 1
+      @second_shot
+    else
+      raise ArgumentError, "Invalid index #{idx}"
+    end
+  end
+
   def score
-    [@first_shot, @second_shot, @third_shot].sum(&:parse_mark)
+    [@first_shot, @second_shot, @third_shot].sum(&:point)
+  end
+
+  def first_two_points
+    [@first_shot, @second_shot].sum(&:point)
+  end
+
+  def strike?
+    @first_shot.strike?
+  end
+
+  def spare?
+    score == 10
   end
 end

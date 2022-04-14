@@ -32,16 +32,19 @@ class Game
   end
 
   def bonus(frames, frame, idx)
-    if frame.first_shot.mark == STRIKE && frames[idx + 1].first_shot.mark == STRIKE
+    next_frame = frames[idx + 1]
+    after_next_frame = frames[idx + 2]
+
+    if frame.strike? && next_frame.strike?
       if idx < 8
-        10 + frames[idx + 2].first_shot.parse_mark
+        10 + after_next_frame[0].point
       else
-        10 + frames[idx + 1].second_shot.parse_mark
+        10 + next_frame[1].point
       end
-    elsif frame.first_shot.mark == STRIKE
-      frames[idx + 1].first_shot.parse_mark + frames[idx + 1].second_shot.parse_mark
-    elsif frame.score == 10
-      frames[idx + 1].first_shot.parse_mark
+    elsif frame.strike?
+      next_frame.first_two_points
+    elsif frame.spare?
+      next_frame[0].point
     else
       0
     end
