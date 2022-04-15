@@ -13,7 +13,7 @@ class Game
     frames = create_frames
     frames.each_with_index.sum do |frame, idx|
       if idx < 9
-        frame.score + bonus(frames, frame, idx)
+        frame.score + calc_bonus(frames, frame, idx)
       else
         frame.score
       end
@@ -30,7 +30,7 @@ class Game
     [*frames, Frame.new(*@marks)]
   end
 
-  def bonus(frames, frame, idx)
+  def calc_bonus(frames, frame, idx)
     next_frame = frames[idx + 1]
     after_next_frame = frames[idx + 2]
 
