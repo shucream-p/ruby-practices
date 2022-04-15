@@ -27,8 +27,7 @@ class Game
       marks = @marks.first == STRIKE ? [@marks.shift] : @marks.shift(2)
       Frame.new(*marks)
     end
-    frames << Frame.new(*@marks)
-    frames
+    [*frames, Frame.new(*@marks)]
   end
 
   def bonus(frames, frame, idx)
