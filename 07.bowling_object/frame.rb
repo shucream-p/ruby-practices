@@ -31,6 +31,6 @@ class Frame
   end
 
   def spare?
-    score == 10
+    !strike? && score == 10
   end
 end
