@@ -11,13 +11,13 @@ class Game
 
   def score
     frames = create_frames
-    frames.each_with_index.map do |frame, idx|
+    frames.each_with_index.sum do |frame, idx|
       if idx < 9
         frame.score + bonus(frames, frame, idx)
       else
         frame.score
       end
-    end.sum
+    end
   end
 
   private
