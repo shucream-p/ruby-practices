@@ -3,33 +3,31 @@
 require_relative 'shot'
 
 class Frame
-  def initialize(first_mark, second_mark = nil, third_mark = nil)
-    @first_shot = Shot.new(first_mark)
-    @second_shot = Shot.new(second_mark)
-    @third_shot = Shot.new(third_mark)
+  def initialize(*marks)
+    @shots = marks.map { |mark| Shot.new(mark) }
   end
 
   def [](idx)
     case idx
     when 0
-      @first_shot
+      @shots[0]
     when 1
-      @second_shot
+      @shots[1]
     else
       raise ArgumentError, "Invalid index #{idx}"
     end
   end
 
   def score
-    [@first_shot, @second_shot, @third_shot].sum(&:point)
+    @shots.sum(&:point)
   end
 
   def first_two_points
-    [@first_shot, @second_shot].sum(&:point)
+    [@shots[0],@shots[1]].sum(&:point)
   end
 
   def strike?
-    @first_shot.strike?
+    @shots[0].strike?
   end
 
   def spare?
