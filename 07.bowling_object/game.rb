@@ -3,8 +3,6 @@
 require_relative 'frame'
 
 class Game
-  STRIKE = 'X'
-
   def initialize(marks)
     @marks = marks.split(',')
   end
@@ -24,7 +22,7 @@ class Game
 
   def create_frames
     frames = Array.new(9) do
-      marks = @marks.first == STRIKE ? [@marks.shift] : @marks.shift(2)
+      marks = Shot.strike?(@marks.first) ? [@marks.shift] : @marks.shift(2)
       Frame.new(*marks)
     end
     [*frames, Frame.new(*@marks)]

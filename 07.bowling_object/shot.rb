@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class Shot
+  STRIKE = 'X'
+
+  def self.strike?(mark)
+    mark == STRIKE
+  end
+
   def initialize(mark)
     @mark = mark
   end
 
   def strike?
-    @mark == 'X'
+    @mark == STRIKE
   end
 
   def point
-    @mark == 'X' ? 10 : @mark.to_i
+    @mark == STRIKE ? 10 : @mark.to_i
   end
 end
