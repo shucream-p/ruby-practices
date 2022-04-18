@@ -8,14 +8,7 @@ class Frame
   end
 
   def [](idx)
-    case idx
-    when 0
-      @shots[0]
-    when 1
-      @shots[1]
-    else
-      raise ArgumentError, "Invalid index #{idx}"
-    end
+    @shots[idx]
   end
 
   def score
