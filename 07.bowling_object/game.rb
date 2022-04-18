@@ -21,11 +21,13 @@ class Game
   private
 
   def create_frames
+    marks_copy = @marks.dup
+
     frames = Array.new(9) do
-      marks = Shot.strike?(@marks.first) ? [@marks.shift] : @marks.shift(2)
-      Frame.new(*marks)
+      frame = Shot.strike?(marks_copy.first) ? [marks_copy.shift] : marks_copy.shift(2)
+      Frame.new(*frame)
     end
-    [*frames, Frame.new(*@marks)]
+    [*frames, Frame.new(*marks_copy)]
   end
 
   def calc_bonus(frames, frame, idx)
