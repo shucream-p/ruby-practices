@@ -16,7 +16,7 @@ class Frame
   end
 
   def first_two_points
-    [@shots[0],@shots[1]].sum(&:point)
+    @shots.first(2).sum(&:point)
   end
 
   def strike?
