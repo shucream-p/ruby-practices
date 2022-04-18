@@ -12,7 +12,7 @@ class Shot
   end
 
   def strike?
-    @mark == STRIKE
+    Shot.strike?(@mark)
   end
 
   def point
