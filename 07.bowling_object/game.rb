@@ -3,8 +3,8 @@
 require_relative 'frame'
 
 class Game
-  def initialize(marks)
-    @marks = marks.split(',')
+  def initialize(marks_text)
+    @marks_text = marks_text
   end
 
   def score
@@ -21,13 +21,13 @@ class Game
   private
 
   def create_frames
-    marks_copy = @marks.dup
+    marks = @marks_text.split(',')
 
     frames = Array.new(9) do
-      frame = Shot.strike?(marks_copy.first) ? [marks_copy.shift] : marks_copy.shift(2)
+      frame = Shot.strike?(marks.first) ? [marks.shift] : marks.shift(2)
       Frame.new(*frame)
     end
-    [*frames, Frame.new(*marks_copy)]
+    [*frames, Frame.new(*marks)]
   end
 
   def calc_bonus(frames, frame, idx)
