@@ -9,13 +9,7 @@ class Game
 
   def score
     frames = create_frames
-    frames.each_with_index.sum do |frame, idx|
-      if idx < 9
-        frame.score + calc_bonus(frames, frame, idx)
-      else
-        frame.score
-      end
-    end
+    frames.each_with_index.sum { |frame, idx| frame.score + calc_bonus(frames, frame, idx) }
   end
 
   private
@@ -34,12 +28,12 @@ class Game
     next_frame = frames[idx + 1]
     after_next_frame = frames[idx + 2]
 
-    if frame.strike? && next_frame.strike?
+    if frame.strike?(idx) && next_frame.strike?(idx)
       bonus_shot = idx < 8 ? after_next_frame[0] : next_frame[1]
       10 + bonus_shot.point
-    elsif frame.strike?
+    elsif frame.strike?(idx)
       next_frame.first_two_points
-    elsif frame.spare?
+    elsif frame.spare?(idx)
       next_frame[0].point
     else
       0
