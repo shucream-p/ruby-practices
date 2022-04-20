@@ -28,9 +28,8 @@ class Game
     next_frame = frames[idx + 1]
     after_next_frame = frames[idx + 2]
 
-    if frame.strike?(idx) && next_frame.strike?(idx)
-      bonus_shot = idx < 8 ? after_next_frame[0] : next_frame[1]
-      10 + bonus_shot.point
+    if frame.strike?(idx) && next_frame.strike?(idx + 1)
+      10 + after_next_frame[0].point
     elsif frame.strike?(idx)
       next_frame.first_two_points
     elsif frame.spare?(idx)
