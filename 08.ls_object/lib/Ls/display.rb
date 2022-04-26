@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'filelist'
+require_relative 'file_list'
 
 module Ls
   class Display
