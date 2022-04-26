@@ -16,12 +16,8 @@ module Ls
 
       devided_list.transpose.each do |files|
         line = files.map do |file|
-          case file
-          when Ls::File
-            file.name.ljust(adjustment_width)
-          else
-            file.to_s.ljust(adjustment_width)
-          end
+          file_name = file.class == Ls::File ? file.name : file.to_s
+            file_name.ljust(adjustment_width)
         end.join
         puts line
       end
