@@ -4,7 +4,7 @@ require 'etc'
 
 module Ls
   class File
-    attr_reader :name
+    attr_reader :name, :nlink, :user_name, :group_name, :size
 
     def initialize(name)
       @name = name
