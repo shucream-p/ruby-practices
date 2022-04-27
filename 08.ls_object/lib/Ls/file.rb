@@ -15,7 +15,7 @@ module Ls
       @user_name = Etc.getpwuid(fs.uid).name
       @group_name = Etc.getgrgid(fs.gid).name
       @size = fs.size
-      @mtime = fs.size
+      @mtime = fs.mtime
     end
 
     def name_length
@@ -27,6 +27,12 @@ module Ls
         @ftype == 'file' ? '-' : @ftype[0],
         @mode[-3, 3].chars.map { |str| convert_to_symbol(str) }.join
       ].join
+    end
+
+    def convert_to_time_format
+      # 最終更新時刻から半年経っているかどうかでフォーマットを決める
+      format = @mtime.between?(Time.now - (60 * 60 * 24 * 180), Time.now) ? '%_m %e %R' : '%_m %e  %Y'
+      @mtime.strftime(format)
     end
 
     private
