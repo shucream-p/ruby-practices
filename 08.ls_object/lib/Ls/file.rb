@@ -21,5 +21,27 @@ module Ls
     def name_length
       @name.size
     end
+
+    def combine_ftype_and_mode
+      [
+        @ftype == 'file' ? '-' : @ftype[0],
+        @mode[-3, 3].chars.map { |str| convert_to_symbol(str) }.join
+      ].join
+    end
+
+    private
+
+    def convert_to_symbol(str)
+      {
+        '0' => '---',
+        '1' => '--x',
+        '2' => '-w-',
+        '3' => '-wx',
+        '4' => 'r--',
+        '5' => 'r-x',
+        '6' => 'rw-',
+        '7' => 'rwx'
+      }[str]
+    end
   end
 end
