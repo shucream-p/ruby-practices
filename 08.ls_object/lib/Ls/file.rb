@@ -4,7 +4,7 @@ require 'etc'
 
 module Ls
   class File
-    attr_reader :name, :nlink, :user_name, :group_name, :size
+    attr_reader :name, :nlink, :user_name, :group_name, :size, :blocks
 
     def initialize(name)
       @name = name
@@ -16,6 +16,7 @@ module Ls
       @group_name = Etc.getgrgid(fs.gid).name
       @size = fs.size
       @mtime = fs.mtime
+      @blocks = fs.blocks
     end
 
     def name_length

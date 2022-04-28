@@ -28,6 +28,7 @@ module Ls
     end
 
     def show_list_long
+      puts "total #{calc_total_blocks}"
       puts build_file_stats_format_list
     end
 
@@ -67,6 +68,10 @@ module Ls
         group_name: @file_list.map { |file| file.group_name.size }.max,
         size: @file_list.map { |file| file.size.to_s.size }.max
       }
+    end
+
+    def calc_total_blocks
+      @file_list.map { |file| file.blocks }.sum
     end
   end
 end
