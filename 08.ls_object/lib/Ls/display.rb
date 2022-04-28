@@ -71,7 +71,7 @@ module Ls
     end
 
     def calc_total_blocks
-      @files.map { |file| file.blocks }.sum
+      @files.sum { |file| file.blocks }
     end
   end
 end
