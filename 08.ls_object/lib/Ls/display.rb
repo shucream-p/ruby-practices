@@ -37,6 +37,7 @@ module Ls
     def devide_the_file_list
       num_to_slice = (@files.size.to_f / COLUMN_NUMBER).ceil
       devided_list = @files.each_slice(num_to_slice).to_a
+      #transposeするために、要素数が足りない場合にnilを追加する
       devided_list.last << nil while devided_list.last.size < num_to_slice
       devided_list
     end
