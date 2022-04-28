@@ -20,8 +20,8 @@ module Ls
 
       devided_list.transpose.each do |files|
         line = files.map do |file|
-          file_name = file.class == Ls::File ? file.name : file.to_s
-            file_name.ljust(adjustment_width)
+          file_name = file.instance_of?(Ls::File) ? file.name : file.to_s
+          file_name.ljust(adjustment_width)
         end.join
         puts line
       end
@@ -37,7 +37,7 @@ module Ls
     def devide_the_file_list
       num_to_slice = (@files.size.to_f / COLUMN_NUMBER).ceil
       devided_list = @files.each_slice(num_to_slice).to_a
-      #transposeするために、要素数が足りない場合にnilを追加する
+      # transposeするために、要素数が足りない場合にnilを追加する
       devided_list.last << nil while devided_list.last.size < num_to_slice
       devided_list
     end
@@ -58,21 +58,21 @@ module Ls
           file.size.to_s.rjust(max_length_map[:size]),
           file.convert_to_time_format,
           file.name
-      ].join(' ')
+        ].join(' ')
       end
     end
 
     def build_max_length_map
       {
-        nlink: @files.map { |file| file.nlink_length }.max,
-        user_name: @files.map { |file| file.user_name_length }.max,
-        group_name: @files.map { |file| file.group_name_length }.max,
-        size: @files.map { |file| file.size_length }.max
+        nlink: @files.map(&:nlink_length).max,
+        user_name: @files.map(&:user_name_length).max,
+        group_name: @files.map(&:group_name_length).max,
+        size: @files.map(&:size_length).max
       }
     end
 
     def calc_total_blocks
-      @files.sum { |file| file.blocks }
+      @files.sum(&:blocks)
     end
   end
 end
