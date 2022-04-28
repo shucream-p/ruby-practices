@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'file_list'
+require_relative 'file'
 
 module Ls
   class Display
@@ -27,6 +27,10 @@ module Ls
       end
     end
 
+    def show_list_long
+      puts build_file_stats_format_list
+    end
+
     private
 
     def devide_the_file_list
@@ -38,6 +42,31 @@ module Ls
 
     def calc_max_file_name_length
       @file_list.max_by(&:name_length).name_length
+    end
+
+    def build_file_stats_format_list
+      max_length_map = build_max_length_map
+
+      @file_list.map do |file|
+        [
+          file.combine_ftype_and_mode,
+          file.nlink.to_s.rjust(max_length_map[:nlink] + 1),
+          file.user_name.ljust(max_length_map[:user_name] + 1),
+          file.group_name.ljust(max_length_map[:group_name] + 1),
+          file.size.to_s.rjust(max_length_map[:size]),
+          file.convert_to_time_format,
+          file.name
+      ].join(' ')
+      end
+    end
+
+    def build_max_length_map
+      {
+        nlink: @file_list.map { |file| file.nlink.to_s.size }.max,
+        user_name: @file_list.map { |file| file.user_name.size }.max,
+        group_name: @file_list.map { |file| file.group_name.size }.max,
+        size: @file_list.map { |file| file.size.to_s.size }.max
+      }
     end
   end
 end
