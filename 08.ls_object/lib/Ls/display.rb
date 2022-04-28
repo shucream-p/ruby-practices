@@ -63,10 +63,10 @@ module Ls
 
     def build_max_length_map
       {
-        nlink: @files.map { |file| file.nlink.to_s.size }.max,
-        user_name: @files.map { |file| file.user_name.size }.max,
-        group_name: @files.map { |file| file.group_name.size }.max,
-        size: @files.map { |file| file.size.to_s.size }.max
+        nlink: @files.map { |file| file.nlink_length }.max,
+        user_name: @files.map { |file| file.user_name_length }.max,
+        group_name: @files.map { |file| file.group_name_length }.max,
+        size: @files.map { |file| file.size_length }.max
       }
     end
 

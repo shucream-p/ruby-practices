@@ -23,6 +23,22 @@ module Ls
       @name.size
     end
 
+    def nlink_length
+      nlink.to_s.size
+    end
+
+    def user_name_length
+      user_name.size
+    end
+
+    def group_name_length
+      group_name.size
+    end
+
+    def size_length
+      size.to_s.size
+    end
+
     def combine_ftype_and_mode
       [
         @ftype == 'file' ? '-' : @ftype[0],
