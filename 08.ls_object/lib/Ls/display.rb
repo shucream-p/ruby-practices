@@ -21,7 +21,7 @@ module Ls
 
       devided_list.transpose.each do |files|
         line = files.map do |file|
-          file_name = file.instance_of?(Ls::File) ? file.name : file.to_s
+          file_name = file.nil? ? file.to_s : file.name
           file_name.ljust(adjustment_width)
         end.join
         puts line
