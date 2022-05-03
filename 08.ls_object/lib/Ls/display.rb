@@ -64,12 +64,10 @@ module Ls
     end
 
     def build_max_length_map
-      {
-        nlink: @files.max_by(&:nlink_length).nlink_length,
-        user_name: @files.max_by(&:user_name_length).user_name_length,
-        group_name: @files.max_by(&:group_name_length).group_name_length,
-        size: @files.max_by(&:size_length).size_length
-      }
+      %i[nlink user_name group_name size].each_with_object({}) do |key, result|
+        method_name = "#{key}_length"
+        result[key] = @files.map { |file| file.send(method_name) }.max
+      end
     end
 
     def calc_total_blocks
