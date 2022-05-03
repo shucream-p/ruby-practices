@@ -7,7 +7,8 @@ module Ls
     COLUMN_NUMBER = 3
 
     def initialize(options)
-      file_names = options['a'] ? Dir.glob('*', ::File::FNM_DOTMATCH) : Dir.glob('*')
+      params = options['a'] ? ['*', ::File::FNM_DOTMATCH] : ['*']
+      file_names = Dir.glob(*params)
       file_names = file_names.reverse if options['r']
       @files = file_names.map { |file_name| Ls::File.new(file_name) }
     end
