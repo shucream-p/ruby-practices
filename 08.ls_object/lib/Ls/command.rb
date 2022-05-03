@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'display'
+require_relative 'short_list'
+require_relative 'long_list'
 require 'optparse'
 
 module Ls
   class Command
     def initialize(argv)
       options = argv.getopts('alr')
-      display = Ls::Display.new(options)
-      options['l'] ? display.show_list_long : display.show_list_short
+      list = options['l'] ? Ls::LongList.new(options) : Ls::ShortList.new(options)
+      list.show
     end
   end
 end
